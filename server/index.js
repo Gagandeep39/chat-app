@@ -9,7 +9,7 @@ const express = require('express');
 
 const http = require('http');
 const router = require('./router');
-const { addUser } = require('./users');
+const { addUser, getUser } = require('./users');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -40,6 +40,14 @@ socketio.on('connection', (socket) => {
       .emit('message', { user: 'admin', text: `${user.name}, jas joined.` });
     // Joins user in a room (Inbuilt function)
     socket.join(user.room);
+    callback();
+  });
+
+  socket.on('sendMessage', (message, callback) => {
+    // Fetch user who sent the message
+    const user = getUser(socket.id);
+    // Send a message to user's room
+    socketio.to(user.room).emit('message', { user: user.name, text: message });
     callback();
   });
 
