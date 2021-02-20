@@ -8,6 +8,9 @@
     "email": "singh.gagandeep3911@gmail.com",
     "url": "https://github.com/Gagandeep39/chat-app"
   },
+  "scripts": {
+    "start": "nodemon index.js"
+  },
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
