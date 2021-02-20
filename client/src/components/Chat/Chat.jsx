@@ -22,7 +22,7 @@ const Chat = ({ location }) => {
     setName(name);
     setRoom(room);
     console.log(socket);
-  }, [location]);
+  }, [location, applicationUrl]);
 
   return <div>Chat Component</div>;
 };
