@@ -24,8 +24,12 @@ const socketio = require('socket.io')(server, {
 socketio.on('connection', (socket) => {
   console.log('New Connection Created~');
 
+  // Callback refers to additional data sent to user after recieving a data from user
+  socket.on('join', ({name, room}, callback) => {
+    console.log(name, room);
+  });
   socket.on('disconnect', () => {
-    console.log('User isconnected');
+    console.log('User disconnected');
   });
 });
 

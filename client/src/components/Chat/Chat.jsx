@@ -21,7 +21,16 @@ const Chat = ({ location }) => {
     socket = io(applicationUrl);
     setName(name);
     setRoom(room);
-    console.log(socket);
+
+    // Executed when user joins chat
+    socket.emit('join', { name, room }, (callback) => {
+      console.log(callback);
+    });
+    // Leave chat on changing screen
+    return () => {
+      socket.emit('disconnect');
+      socket.off();
+    };
   }, [location, applicationUrl]);
 
   return <div>Chat Component</div>;
