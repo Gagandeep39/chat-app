@@ -1,0 +1,11 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "author": {
+    "name": "Gagandeep Singh",
+    "email": "singh.gagandeep3911@gmail.com",
+    "url": "https://github.com/Gagandeep39/chat-app"
+  }
+}
