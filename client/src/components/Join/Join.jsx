@@ -35,7 +35,7 @@ const Join = () => {
         </div>
         {/* onClick ensures button will redirect only if both values are not null */}
         <Link
-          to={`chat?name=${name}&room=${room}`}
+          to={`/chat?name=${name}&room=${room}`}
           onClick={(event) => (!name || !room ? event.preventDefault() : null)}
         >
           <button className="button mt-20" type="submit">
