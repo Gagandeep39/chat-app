@@ -13,7 +13,6 @@ const { addUser, getUser, removeUser, getUsersInRoom } = require('./users');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
-app.use(cors());
 
 const server = http.createServer(app);
 
@@ -74,4 +73,5 @@ socketio.on('connection', (socket) => {
 });
 
 app.use(router);
+app.use(cors());
 server.listen(PORT, () => console.log(`Server running at port: ${PORT}`));
