@@ -14,10 +14,10 @@ function App() {
   return (
     <div className="App">
       <Router>
-      <Switch>
-        <Route path={'/chat'} component={Chat} />
-        <Route path={'/'} component={Join} />
-      </Switch>
+        <Switch>
+          <Route path={'/chat'} component={Chat} />
+          <Route path={'/'} component={Join} />
+        </Switch>
       </Router>
     </div>
   );
