@@ -15,6 +15,9 @@ let socket;
 const Chat = ({ location }) => {
   const [name, setName] = useState('');
   const [room, setRoom] = useState('');
+  const [message, setMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+
   const applicationUrl = process.env.REACT_APP_SERVER_URL || 'localhost:5000';
   useEffect(() => {
     const { name, room } = queryString.parse(location.search);
@@ -33,7 +36,34 @@ const Chat = ({ location }) => {
     };
   }, [location, applicationUrl]);
 
-  return <div>Chat Component</div>;
+  // Reads messages of others
+  useEffect(() => {
+    socket.on('message', (message) => {
+      setMessages([...messages, message]);
+    });
+  }, [messages]);
+
+  // Send message
+  const sendMessage = (event) => {
+    // Prvent full browser refresh
+    event.preventDefault();
+    if (message) socket.emit('sendMessage', message, () => setMessage(''));
+  };
+
+  return (
+    <div className="outerContainer">
+      <div className="container">
+        <input
+          type="text"
+          value={message}
+          onChange={(event) => setMessage(event.target.value)}
+          onKeyPress={(event) =>
+            event.key === 'Enter' ? sendMessage(event) : null
+          }
+        />
+      </div>
+    </div>
+  );
 };
 
 export default Chat;
