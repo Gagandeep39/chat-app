@@ -9,7 +9,7 @@ const express = require('express');
 
 const http = require('http');
 const router = require('./router');
-const { addUser, getUser } = require('./users');
+const { addUser, getUser, removeUser } = require('./users');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -53,6 +53,12 @@ socketio.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     console.log('User disconnected');
+    const user = removeUser(socket.id);
+    if (user)
+      socketio.to(user.room).emit('message', {
+        user: 'admin',
+        text: `${user.name} has left.`,
+      });
   });
 });
 
