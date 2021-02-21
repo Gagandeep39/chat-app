@@ -13,10 +13,12 @@ import Join from './components/Join/Join';
 function App() {
   return (
     <div className="App">
+      <Router>
       <Switch>
-        <Route path={'/'} exact component={Join} />
         <Route path={'/chat'} component={Chat} />
+        <Route path={'/'} component={Join} />
       </Switch>
+      </Router>
     </div>
   );
 }
