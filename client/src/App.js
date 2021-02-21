@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="App">
       <Switch>
-        <Route path="/" exact component={Join} />
-        <Route path="/chat" component={Chat} />
+        <Route path={'/'} exact component={Join} />
+        <Route path={'/chat'} component={Chat} />
       </Switch>
     </div>
   );
