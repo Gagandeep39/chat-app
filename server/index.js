@@ -9,7 +9,7 @@ const express = require('express');
 
 const http = require('http');
 const router = require('./router');
-const { addUser, getUser, removeUser } = require('./users');
+const { addUser, getUser, removeUser, getUsersInRoom } = require('./users');
 const PORT = process.env.PORT || 5000;
 
 const app = express();
@@ -40,6 +40,12 @@ socketio.on('connection', (socket) => {
       .emit('message', { user: 'admin', text: `${user.name}, jas joined.` });
     // Joins user in a room (Inbuilt function)
     socket.join(user.room);
+
+    // Sends users in current room
+    socketio
+      .to(user.room)
+      .emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
+
     callback();
   });
 
@@ -48,6 +54,10 @@ socketio.on('connection', (socket) => {
     const user = getUser(socket.id);
     // Send a message to user's room
     socketio.to(user.room).emit('message', { user: user.name, text: message });
+    // Sends users in current room
+    socketio
+      .to(user.room)
+      .emit('roomData', { room: user.room, users: getUsersInRoom(user.room) });
     callback();
   });
 
